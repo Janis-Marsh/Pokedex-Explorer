@@ -3,16 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex Explorer</title>
+    <title>Pokédex Explorer</title>
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/app.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Tiny5&display=swap" rel="stylesheet">
+
 </head>
-<body>
-    <header></header>
 
-    <main></main>
+<body class="min-h-screen flex flex-col">
 
-    <footer></footer>
+    <header class="bg-red-600 p-3 2xl:p-5 2xl:text-2xl text-white font-bold">
+
+        <!-- Navigation container -->
+        <nav class="flex justify-between gap-4 flex-wrap">
+
+            <!-- Website title -->
+            <h1 class="jersey-10-regular text-sm md:text-lg lg:text-2xl xl:text-4xl">
+                Pokédex Explorer
+            </h1>
+
+
+            <!-- Navigation links -->
+            <ul class="flex gap-4 flex-wrap jersey-10-regular">
+
+                <!-- Takes the user to the top of the page -->
+                <li class="md:text-lg lg:text-xl xl:text-2xl hover:text-yellow-200">
+                    <a href="#home">Home</a>
+                </li>
+
+                <!-- Takes the user to the search input -->
+                <li class="md:text-lg lg:text-xl xl:text-2xl hover:text-yellow-200">
+                    <a href="#searchInput">Search</a>
+                </li>
+
+                <!-- Takes the user to the filter by type -->
+                <li class="md:text-lg lg:text-xl xl:text-2xl hover:text-yellow-200">
+                    <a href="#filterType">Filter</a>
+                </li>
+
+                <!-- Takes the user to the Pokemon cards -->
+                <li class="md:text-lg lg:text-xl xl:text-2xl hover:text-yellow-200">
+                    <a href="#pokemonContainer">Pokémon</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <main id="home" class="flex-grow">
+
+        <div class="text-center py-12 px-6">
+
+            <!-- Main page heading -->
+            <h1 class="text-xl md:text-2xl lg:text-3xl xl:text-4xl my-4 font-bold jersey-10-regular">
+                Explore Pokémon
+            </h1>
+
+            <!-- Short description of the website -->
+            <p class="mt-4 text-gray-600">
+                Your guide to the world of Pokémon.
+                Discover their types, weight, height, and more.
+            </p>
+
+        </div>
+
+        <div class="flex items-center justify-center gap-5 mb-5 mx-5 flex-wrap">
+
+
+            <!-- Search input -->
+             <!-- Users can search for a Pokemon by:
+                - Name
+                - Pokédex number -->
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search by name or Pokédex number..."
+                class="w-full max-w-md px-4 py-3 border border-gray-300 rounded-lg shadow"
+                accesskey="s"
+            >
+
+
+            <!-- Pokemon type filter -->
+            <select
+                id="filterType"
+                class="px-4 py-3 rounded-lg border shadow"
+                accesskey="t"
+            >
+                <option value="all">All Types</option> 
+                <option value="normal">Normal</option> 
+                <option value="fire">Fire</option> 
+                <option value="water">Water</option> 
+                <option value="grass">Grass</option> 
+                <option value="electric">Electric</option> 
+                <option value="ice">Ice</option> 
+                <option value="fighting">Fighting</option> 
+                <option value="poison">Poison</option> 
+                <option value="ground">Ground</option> 
+                <option value="flying">Flying</option> 
+                <option value="psychic">Psychic</option> 
+                <option value="bug">Bug</option> 
+                <option value="rock">Rock</option> 
+                <option value="ghost">Ghost</option> 
+                <option value="dragon">Dragon</option>
+                <option value="dark">Dark</option>
+                <option value="steel">Steel</option>
+                <option value="fairy">Fairy</option>
+            </select>
+
+        </div>
+
+        <!-- This section is displayed while Pokemon information is being fetched from the API. -->
+        <!-- JavaScript controls whether this is visible -->
+        <div id="loading" class="text-center py-10">
+
+            <!-- Spinning Pokeball loading image -->
+            <img
+                src="./images/pokeball.png"
+                alt="Loading..."
+                class="w-20 h-20 mx-auto animate-spin"
+            >
+
+            <!-- Loading message -->
+            <p class="mt-4 text-xl font-bold text-red-600">
+                Loading Pokémon...
+            </p>
+
+        </div>
+
+        <!--
+            JavaScript inserts the Pokémon cards into
+            this container.
+        -->
+            <!-- The grid classes make the layout responsive: -->
+            <!-- 1 column  = small screens
+            2 columns = sm
+            3 columns = md
+            4 columns = lg
+            5 columns = xl
+            6 columns = 2xl -->
+        <div
+            id="pokemonContainer"
+            class="
+                grid
+                grid-cols-1
+                sm:grid-cols-2
+                md:grid-cols-3
+                lg:grid-cols-4
+                xl:grid-cols-5
+                2xl:grid-cols-6
+                gap-3
+                2xl:gap-1
+            "
+        >
+        </div>
+
+        <div class="text-center my-8">
+
+            <!-- JavaScript listens for clicks on this button. -->
+
+            <!-- Each click loads 30 more Pokémon. -->
+            <button
+                id="loadMoreButton"
+                class="bg-green-500 text-white font-bold px-6 py-3 rounded-lg shadow hover:bg-green-600"
+            >
+                Load More
+            </button>
+
+        </div>
+
+    </main>
+
+    <footer class="text-center bg-red-600 text-yellow-200 font-semibold py-3">
+
+        <!-- Credits the API used by the website -->
+        <p>
+            Data provided by
+            <a
+                href="https://pokeapi.co/"
+                target="_blank"
+                class="underline"
+            >
+                PokéAPI
+            </a>
+        </p>
+
+    </footer>
+
+
 </body>
 </html>
